@@ -5,7 +5,7 @@ const layout = props =>
 {
 	const {children} = props;
 
-	return <ConfigProvider locale={enUS}>
+	return <ConfigProvider locale={enUS} device={'tabel'}>
 		<Shell>
 			<Shell.Branding>
 				<div>App name</div>
@@ -38,6 +38,10 @@ const layout = props =>
 					{children}
 				</div>
 			</Shell.Content>
+
+			<Shell.Ancillary>
+
+			</Shell.Ancillary>
 		</Shell>
 	</ConfigProvider>;
 };
