@@ -1,3 +1,4 @@
+import ProfileMenu from '@/components/ProfileMenu';
 import {Avatar, Box, ConfigProvider, Divider, Nav, Search, Shell} from '@alifd/next';
 import enUS from '@alifd/next/es/locale/en-us';
 
@@ -5,7 +6,11 @@ const layout = props =>
 {
 	const {children} = props;
 
-	return <ConfigProvider locale={enUS} device={'tabel'}>
+	return <ConfigProvider locale={enUS}
+						   device={'tablet'}
+						   defaultPropsConfig={{
+							   //Button: {size: 'large'}
+						   }}>
 		<Shell>
 			<Shell.Branding>
 				<div>App name</div>
@@ -18,11 +23,7 @@ const layout = props =>
 
 					<Divider direction={'ver'}/>
 
-					<Box direction={'row'}
-						 align={'center'}>
-						<Avatar size={'small'}>ME</Avatar>
-						<span className={'ml'}>My name</span>
-					</Box>
+					<ProfileMenu name={'demo'} backgroundColor={'#87d068'}/>
 				</Box>
 
 			</Shell.Action>
