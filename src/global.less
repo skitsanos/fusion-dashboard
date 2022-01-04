@@ -8,6 +8,10 @@
 @font-weight-normal: 400;
 @margin: 0.3em;
 
+body {
+  font-family: @font-family;
+}
+
 #root {
   height: 100vh;
 
@@ -18,12 +22,24 @@
   }
 }
 
-#workspace{
+#workspace {
   background-color: #fff;
   padding: @margin*3;
 }
 
 
 .ml {
-  margin-left: @margin;
+  margin-left: @margin !important;
+}
+
+.ml-xxl {
+  margin-left: @margin*3 !important;
+}
+
+.mr {
+  margin-right: @margin !important;
+}
+
+.mr-xxl {
+  margin-right: @margin*3 !important;
 }

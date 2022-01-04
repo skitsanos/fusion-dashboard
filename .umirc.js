@@ -1,10 +1,7 @@
-export default {
+import {defineConfig} from 'umi';
+
+export default defineConfig({
 	title: 'Fusion.Design demo',
-
-	nodeModulesTransform: {type: 'none'},
-
-	fastRefresh: {},
-	mfsu: {},
 
 	metas: [
 		{
@@ -15,5 +12,17 @@ export default {
 			name: 'description',
 			content: 'Fusion.Design Sample application'
 		}
-	]
-};
+	],
+
+	nodeModulesTransform: {type: 'none'},
+
+	fastRefresh: {},
+	mfsu: {},
+	//devtool: false,
+
+	ignoreMomentLocale: true,
+
+	dynamicImport: {
+		loading: '@/components/Loading'
+	}
+});

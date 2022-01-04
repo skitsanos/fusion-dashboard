@@ -1,10 +1,14 @@
 import PageHeader from '@/components/PageHeader';
+import {LocalesContext} from '@/core/i8n';
 import {Button} from '@alifd/next';
+import {useContext} from 'react';
 
 const page = () =>
 {
+	const {label, locale, setLocale} = useContext(LocalesContext);
+
 	return <div>
-		<PageHeader title={'Welcome'}
+		<PageHeader title={label('welcome')}
 					description={'You are logged as demo'}
 					breadcrumbs={[
 						{

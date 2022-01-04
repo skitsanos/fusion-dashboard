@@ -1,49 +1,79 @@
+import {apiGet, endpoints} from '@/api';
+import Loading from '@/components/Loading';
 import ProfileMenu from '@/components/ProfileMenu';
-import {Avatar, Box, ConfigProvider, Divider, Nav, Search, Shell} from '@alifd/next';
+import {identifyLocale, loadLocales, LocalesContext, LocalizedApp} from '@/core/i8n';
+import {Box, ConfigProvider, Divider, Nav, Search, Shell} from '@alifd/next';
 import enUS from '@alifd/next/es/locale/en-us';
+import {useRequest, useSafeState} from 'ahooks';
+import {useContext, useEffect} from 'react';
 
 const layout = props =>
 {
 	const {children} = props;
 
+	//Loading language pack
+	const {data, loading} = useRequest(() => apiGet(endpoints.local.locales));
+
+	const {setLocale} = useContext(LocalesContext);
+	const [languageInstalled, setLanguageInstalled] = useSafeState(false);
+
+	useEffect(async () =>
+	{
+		if (data)
+		{
+			window.__LOCALES__ = data;
+
+			await setLocale(identifyLocale());
+
+			setLanguageInstalled(true);
+		}
+	}, [data]);
+
 	return <ConfigProvider locale={enUS}
-						   device={'tablet'}
 						   defaultPropsConfig={{
 							   //Button: {size: 'large'}
 						   }}>
-		<Shell>
-			<Shell.Branding>
-				<div>App name</div>
-			</Shell.Branding>
+		<>
+			{!languageInstalled && <Loading isLoading={true}>Loading languages...</Loading>}
 
-			<Shell.Action>
-				<Box direction={'row'}
-					 align={'center'}>
-					<Search shape={'simple'}/>
+			{languageInstalled && <LocalizedApp>
+				<Shell>
+					<Shell.Branding>
+						<div>App name</div>
+					</Shell.Branding>
 
-					<Divider direction={'ver'}/>
+					<Shell.Action>
+						<Box direction={'row'}
+							 align={'center'}>
+							<Search shape={'simple'}/>
 
-					<ProfileMenu name={'demo'} backgroundColor={'#87d068'}/>
-				</Box>
+							<Divider direction={'ver'}/>
 
-			</Shell.Action>
+							<ProfileMenu name={'demo'}
+										 backgroundColor={'#87d068'}/>
+						</Box>
 
-			<Shell.Navigation>
-				<Nav embeddable={true}>
-					<Nav.Item icon={'account'}>Dashboard</Nav.Item>
-				</Nav>
-			</Shell.Navigation>
+					</Shell.Action>
 
-			<Shell.Content>
-				<div id={'workspace'}>
-					{children}
-				</div>
-			</Shell.Content>
+					<Shell.Navigation>
+						<Nav embeddable={true}
+							 mode={'popup'}>
+							<Nav.Item icon={'dashboard'}>Dashboard</Nav.Item>
+						</Nav>
+					</Shell.Navigation>
 
-			<Shell.Ancillary>
+					<Shell.Content>
+						<div id={'workspace'}>
+							{children}
+						</div>
+					</Shell.Content>
 
-			</Shell.Ancillary>
-		</Shell>
+					{/*<Shell.Ancillary>
+
+					 </Shell.Ancillary>*/}
+				</Shell>
+			</LocalizedApp>}
+		</>
 	</ConfigProvider>;
 };
 
