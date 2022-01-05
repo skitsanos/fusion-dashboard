@@ -1,15 +1,20 @@
 import {apiGet, endpoints} from '@/api';
 import Loading from '@/components/Loading';
 import ProfileMenu from '@/components/ProfileMenu';
-import {identifyLocale, loadLocales, LocalesContext, LocalizedApp} from '@/core/i8n';
+import {identifyLocale, LocalesContext, LocalizedApp} from '@/core/i8n';
+import {sidebar} from '@/sidebar';
 import {Box, ConfigProvider, Divider, Nav, Search, Shell} from '@alifd/next';
 import enUS from '@alifd/next/es/locale/en-us';
 import {useRequest, useSafeState} from 'ahooks';
 import {useContext, useEffect} from 'react';
+import {useHistory} from 'umi';
 
 const layout = props =>
 {
 	const {children} = props;
+
+	const history = useHistory();
+	const [currentPath, setCurrentPath] = useSafeState('/');
 
 	//Loading language pack
 	const {data, loading} = useRequest(() => apiGet(endpoints.local.locales));
@@ -28,6 +33,12 @@ const layout = props =>
 			setLanguageInstalled(true);
 		}
 	}, [data]);
+
+	const navChange = ([selectedKey], item, extra) =>
+	{
+		setCurrentPath(selectedKey);
+		history.push(selectedKey);
+	};
 
 	return <ConfigProvider locale={enUS}
 						   defaultPropsConfig={{
@@ -57,8 +68,18 @@ const layout = props =>
 
 					<Shell.Navigation>
 						<Nav embeddable={true}
-							 mode={'popup'}>
-							<Nav.Item icon={'dashboard'}>Dashboard</Nav.Item>
+							 defaultSelectedKeys={currentPath}
+							 onSelect={navChange}>
+							{sidebar.map(el => !el.items
+								? <Nav.Item key={el.key}
+											icon={el.icon}>{el.label}</Nav.Item>
+								: <Nav.SubNav key={el.key}
+											  icon={el.icon}
+											  label={el.label}>
+									{el.items.map(subEl => <Nav.Item key={subEl.key}
+																	 icon={subEl.icon}>{subEl.label}</Nav.Item>)}
+								</Nav.SubNav>)
+							}
 						</Nav>
 					</Shell.Navigation>
 
