@@ -1,6 +1,11 @@
 # fusion-dashboard
 Blank layout for dashboards made with Alibaba's Fusion.Design
 
+---
+
+Demo: [https://fusion-dashboard.netlify.app/](https://fusion-dashboard.netlify.app/)
+
+---
 
 New features:
 
