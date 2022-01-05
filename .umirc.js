@@ -11,6 +11,10 @@ export default defineConfig({
 		{
 			name: 'description',
 			content: 'Fusion.Design Sample application'
+		},
+		{
+			name: 'author',
+			content: 'Skitsanos, https://skitsanos.com'
 		}
 	],
 
