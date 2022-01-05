@@ -2,6 +2,7 @@ import {apiGet, endpoints} from '@/api';
 import Loading from '@/components/Loading';
 import ProfileMenu from '@/components/ProfileMenu';
 import {identifyLocale, LocalesContext, LocalizedApp} from '@/core/i8n';
+import {navGroupRenderer, navItemRenderer, subNavItemRenderer} from '@/core/renderers/navItemRenderer';
 import {sidebar} from '@/sidebar';
 import {Box, ConfigProvider, Divider, Nav, Search, Shell} from '@alifd/next';
 import enUS from '@alifd/next/es/locale/en-us';
@@ -70,16 +71,19 @@ const layout = props =>
 						<Nav embeddable={true}
 							 defaultSelectedKeys={currentPath}
 							 onSelect={navChange}>
-							{sidebar.map(el => !el.items
-								? <Nav.Item key={el.key}
-											icon={el.icon}>{el.label}</Nav.Item>
-								: <Nav.SubNav key={el.key}
-											  icon={el.icon}
-											  label={el.label}>
-									{el.items.map(subEl => <Nav.Item key={subEl.key}
-																	 icon={subEl.icon}>{subEl.label}</Nav.Item>)}
-								</Nav.SubNav>)
-							}
+							{sidebar.map(el =>
+							{
+								if (el?.type === 'group' && el?.items?.length > 0)
+								{
+									return navGroupRenderer(el);
+								}
+								else
+								{
+									return !el.items
+										? navItemRenderer(el)
+										: subNavItemRenderer(el);
+								}
+							})}
 						</Nav>
 					</Shell.Navigation>
 
