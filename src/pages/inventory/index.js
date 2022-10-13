@@ -61,7 +61,7 @@ const dataSource = Array.from({length: 20}, () => ({
     email: chance.email({domain: 'acmecorp.zyx'})
 }));
 
-const page = props =>
+const page = () =>
 {
     return <PageContent title={'Inventory'}
                         description={'Assets journal'}>

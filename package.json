@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "postinstall": "umi setup",
     "dev": "umi dev",
     "build": "umi build",
     "deploy": "netlify deploy",

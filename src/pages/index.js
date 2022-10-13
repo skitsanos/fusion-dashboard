@@ -3,9 +3,9 @@ import {LocalesContext} from '@/core/i8n';
 import {Button} from '@alifd/next';
 import {useContext} from 'react';
 
-const page = () =>
+const Page = () =>
 {
-	const {label, locale, setLocale} = useContext(LocalesContext);
+	const {label/*, locale, setLocale*/} = useContext(LocalesContext);
 
 	return <div>
 		<PageHeader title={label('welcome')}
@@ -24,4 +24,4 @@ const page = () =>
 	</div>;
 };
 
-export default page;
+export default Page;
