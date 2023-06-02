@@ -6,7 +6,13 @@
  */
 const checkIfSmallScreen = r =>
 {
-    const {xs, sm, md, lg, xl} = r;
+    const {
+        xs,
+        sm,
+        md,
+        lg,
+        xl
+    } = r;
     return (xs || sm || md || lg) && (!xl);
 };
 

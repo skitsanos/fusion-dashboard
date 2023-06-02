@@ -52,8 +52,16 @@ const columns = [
 
 const dataSource = Array.from({length: 20}, () => ({
     id: chance.fbid(),
-    title: chance.string({length: 10, alpha: true, numeric: false, symbols: false}),
-    qnt: chance.integer({min: 1, max: 999}),
+    title: chance.string({
+        length: 10,
+        alpha: true,
+        numeric: false,
+        symbols: false
+    }),
+    qnt: chance.integer({
+        min: 1,
+        max: 999
+    }),
     responsible: {
         name: chance.name(),
         company: chance.company()

@@ -5,23 +5,23 @@ import {useContext} from 'react';
 
 const Page = () =>
 {
-	const {label/*, locale, setLocale*/} = useContext(LocalesContext);
+    const {label/*, locale, setLocale*/} = useContext(LocalesContext);
 
-	return <div>
-		<PageHeader title={label('welcome')}
-					description={'You are logged as demo'}
-					breadcrumbs={[
-						{
-							name: 'Home'
-						},
-						{
-							path: '/dashboard',
-							name: 'Dashboard'
-						}
-					]}/>
+    return <>
+        <PageHeader title={label('welcome')}
+                    description={'You are logged as demo'}
+                    breadcrumbs={[
+                        {
+                            name: 'Home'
+                        },
+                        {
+                            path: '/dashboard',
+                            name: 'Dashboard'
+                        }
+                    ]}/>
 
-		<Button type={'primary'}>Ok</Button>
-	</div>;
+        <Button type={'primary'}>Ok</Button>
+    </>;
 };
 
 export default Page;

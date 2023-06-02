@@ -4,61 +4,67 @@ import intl from 'react-intl-universal';
 
 export const identifyLocale = () =>
 {
-	const locale = intl.determineLocale({
-		localStorageLocaleKey: 'app.lang',
-		fallbackLocale: 'en'
-	});
+    const locale = intl.determineLocale({
+        localStorageLocaleKey: 'app.lang',
+        fallbackLocale: 'en'
+    });
 
-	const [lang] = locale.split('-');
-	return lang ?? 'en';
+    const [lang] = locale.split('-');
+    return lang ?? 'en';
 };
 
 export const LocalesContext = createContext({
-	locale: identifyLocale(),
-	label: () =>
-	{
-	},
-	setLocale: () =>
-	{
-	}
+    locale: identifyLocale(),
+    label: () =>
+    {
+    },
+    setLocale: () =>
+    {
+    }
 });
 
 export const LocalizedApp = props =>
 {
-	const {children} = props;
+    const {children} = props;
 
-	const setLocale = locale =>
-		new Promise(resolve =>
-		{
-			localStorage.setItem('app.lang', locale);
+    const setLocale = locale =>
+        new Promise(resolve =>
+        {
+            localStorage.setItem('app.lang', locale);
 
-			intl
-			.init({
-				currentLocale: identifyLocale(),
-				locales: window.__LOCALES__ || {}
-			})
-			.then(() =>
-			{
-				setState({...state, locale});
-				resolve();
-			});
-		});
+            intl
+                .init({
+                    currentLocale: identifyLocale(),
+                    locales: window.__LOCALES__ || {}
+                })
+                .then(() =>
+                {
+                    setState({
+                        ...state,
+                        locale
+                    });
+                    resolve();
+                });
+        });
 
-	const initState = {
-		locale: identifyLocale(),
+    const initState = {
+        locale: identifyLocale(),
 
-		label: (id, variables) => intl.formatMessage({id, defaultMessage: `%${id.toUpperCase()}%`}, variables),
+        label: (id, variables) => intl.formatMessage({
+            id,
+            defaultMessage: `%${id.toUpperCase()}%`
+        }, variables),
 
-		setLocale
-	};
+        setLocale
+    };
 
-	const [state, setState] = useSafeState(initState);
-	useEffect(() =>
-	{
-		setLocale(state.locale);
-	}, []);
+    const [state, setState] = useSafeState(initState);
+    useEffect(() =>
+    {
+        setLocale(state.locale);
+    }, []);
 
-	return <LocalesContext.Provider value={state}>{children}</LocalesContext.Provider>;
+    return <LocalesContext.Provider value={state}>{children}</LocalesContext.Provider>;
 };
 
 /**
@@ -67,8 +73,8 @@ export const LocalizedApp = props =>
  */
 export const loadLocales = async () =>
 {
-	const body = await fetch('/locales.json').then(res => res.json());
-	window.__LOCALES__ = body ?? {};
+    const body = await fetch('/locales.json').then(res => res.json());
+    window.__LOCALES__ = body ?? {};
 
-	Promise.resolve(true);
+    Promise.resolve(true);
 };

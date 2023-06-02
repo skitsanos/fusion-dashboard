@@ -77,8 +77,8 @@ const Layout = () =>
                                 else
                                 {
                                     return !el.items
-                                        ? navItemRenderer(el)
-                                        : subNavItemRenderer(el);
+                                           ? navItemRenderer(el)
+                                           : subNavItemRenderer(el);
                                 }
                             })}
                         </Nav>

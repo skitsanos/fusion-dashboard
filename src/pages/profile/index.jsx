@@ -13,7 +13,11 @@ const generateProfile = function* ()
 
 const Page = () =>
 {
-    const {avatar, name, memo} = generateProfile().next().value;
+    const {
+        avatar,
+        name,
+        memo
+    } = generateProfile().next().value;
 
     return <PageContent title={'My profile'}
                         breadcrumbs={[

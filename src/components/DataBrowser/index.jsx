@@ -24,7 +24,12 @@ const renderSmallScreenDataBrowser = (rows, renderer) => <>
  */
 const DataBrowser = props =>
 {
-    const {columns, dataSource, searchPrompt = 'type here to search', smallScreenRenderer} = props;
+    const {
+        columns,
+        dataSource,
+        searchPrompt = 'type here to search',
+        smallScreenRenderer
+    } = props;
 
     const responsive = useResponsive();
 

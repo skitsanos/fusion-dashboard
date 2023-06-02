@@ -1,5 +1,4 @@
-.pageHeader
-{
+.pageHeader {
     margin-top: calc(0px - var(--shell-dark-content-paddingTop, 20px));
     margin-right: calc(0px - var(--shell-dark-content-paddingLeft, 20px));
     margin-bottom: 0;
@@ -8,8 +7,7 @@
     background-color: var(--color-white, #fff);
 }
 
-.title
-{
+.title {
     display: block;
     color: var(--color-text1-4, #333);
     font-weight: var(--font-weight-3, bold);
@@ -17,8 +15,7 @@
     line-height: 1.5;
 }
 
-.description
-{
+.description {
     display: block;
     color: var(--color-text1-3, #666);
     font-size: var(--font-size-body-2, 14px);
