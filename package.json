@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@alifd/next": "^1.26.18",
-    "@alifd/theme-2": "^0.4.4",
+    "@alifd/theme-2": "^2.0.0",
     "@alifd/theme-3": "^0.6.0",
     "ahooks": "^3.7.7",
     "chance": "^1.1.11",
